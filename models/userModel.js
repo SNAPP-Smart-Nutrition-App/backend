@@ -9,7 +9,7 @@ const db = require("../utils/db");
  */
 const createUser = async (username, email, hashedPassword) => {
   try {
-    const query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+    const query = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)";
     await db.query(query, [username, email, hashedPassword]);
   } catch (error) {
     console.error("Error saat membuat user:", error.message);
@@ -24,8 +24,8 @@ const createUser = async (username, email, hashedPassword) => {
  */
 const getUserByEmail = async (email) => {
   try {
-    const query = "SELECT * FROM users WHERE email = ?";
-    const [rows] = await db.query(query, [email]);
+    const query = "SELECT * FROM users WHERE email = $1";
+    const { rows } = await db.query(query, [email]);
     return rows.length > 0 ? rows[0] : null;
   } catch (error) {
     console.error("Error saat mencari user dengan email:", error.message);
@@ -35,8 +35,8 @@ const getUserByEmail = async (email) => {
 
 const getUserById = async (id) => {
   try {
-    const query = "SELECT * FROM users WHERE id = ?";
-    const [rows] = await db.query(query, [id]);
+    const query = "SELECT * FROM users WHERE id = $1";
+    const { rows } = await db.query(query, [id]);
     return rows[0] || null; // Kembalikan user pertama atau null jika tidak ditemukan
   } catch (error) {
     console.error("Error executing query:", error);
@@ -46,7 +46,7 @@ const getUserById = async (id) => {
 
 const updateUser = async (id, username, hashedPassword) => {
   try {
-    const query = "UPDATE users SET username = ?, password = ? WHERE id = ?";
+    const query = "UPDATE users SET username = $1, password = $2 WHERE id = $3";
     await db.query(query, [username, hashedPassword, id]);
   } catch (error) {
     console.error("Error updating user:", error);

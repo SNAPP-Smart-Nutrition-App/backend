@@ -19,7 +19,7 @@ const authRoutes = [
   },
   {
     method: "POST",
-    path: "/logout",
+    path: "/users/logout",
     handler: authController.logout,
     options: {
       auth: "session", // Hanya user yang login dapat mengakses

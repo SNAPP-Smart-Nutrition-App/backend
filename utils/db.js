@@ -1,12 +1,13 @@
 require("dotenv").config();
 
-const mysql = require("mysql2/promise");
+const { Pool } = require("pg");
 
-const pool = mysql.createPool({
-  host: "34.50.69.254",
-  user: "project", // Ganti dengan username database Anda
-  password: "ridho22", // Ganti dengan password database Anda
-  database: "project", // Ganti dengan nama database Anda
+const pool = new Pool({
+  host: "localhost", // Ganti dengan host PostgreSQL Anda
+  user: "postgres", // Ganti dengan username PostgreSQL Anda
+  password: "12345678", // Ganti dengan password PostgreSQL Anda
+  database: "userAuthentikasi", // Ganti dengan nama database PostgreSQL Anda
+  port: 5432, // Port default PostgreSQL
 });
 
 module.exports = pool;
