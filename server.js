@@ -31,6 +31,9 @@ const init = async () => {
       name: "sid",
       password: process.env.COOKIE_SECRET, // Rahasia untuk mengenkripsi cookie
       isSecure: process.env.NODE_ENV === "production", // Hanya aktif di HTTPS pada produksi
+      ttl: 7 * 24 * 60 * 60 * 1000, // 7 hari dalam milidetik
+      path: "/",
+      isHttpOnly: true,
     },
     validate: async (request, session) => {
       if (!session || !session.userId) {
