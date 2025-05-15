@@ -22,7 +22,8 @@ const register = async (request, h) => {
         username: username,
         email: email,
       },
-      "your_secret_key"
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
     );
 
     return h
@@ -72,7 +73,8 @@ const login = async (request, h) => {
         username: user.username,
         email: user.email,
       },
-      "your_secret_key"
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
     );
 
     return h
@@ -156,9 +158,25 @@ const editProfile = async (request, h) => {
   }
 };
 
+const verifyToken = async (request, h) => {
+  const { token } = request.payload || request.query || {};
+
+  if (!token) {
+    return h.response({ valid: false, message: "Token tidak ditemukan" }).code(401);
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return h.response({ valid: true, user: decoded }).code(200);
+  } catch (error) {
+    return h.response({ valid: false, message: "Token tidak valid" }).code(401);
+  }
+};
+
 module.exports = {
   register,
   login,
   logout,
   editProfile,
+  verifyToken,
 };

@@ -33,6 +33,14 @@ const authRoutes = [
       auth: "session",
     },
   },
+  {
+    method: "POST",
+    path: "/verify-token",
+    handler: authController.verifyToken,
+    options: {
+      auth: false, // Tidak perlu autentikasi untuk verifikasi token
+    },
+  },
 ];
 
 module.exports = authRoutes;

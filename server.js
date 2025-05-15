@@ -15,7 +15,7 @@ const init = async () => {
 
   // Konfigurasi sesi menggunakan cookie
   server.state("session", {
-    ttl: 24 * 60 * 60 * 1000, // Sesi berlaku selama 1 hari
+    ttl: 7 * 24 * 60 * 60 * 1000, // Sesi berlaku selama 1 hari
     isSecure: process.env.NODE_ENV === "production", // Hanya secure pada produksi
     isHttpOnly: true, // Hanya dapat diakses oleh server
     path: "/", // Path untuk menyimpan cookie
