@@ -5,12 +5,13 @@ const db = require("../utils/db");
  * @param {string} username - Username pengguna.
  * @param {string} email - Email pengguna.
  * @param {string} hashedPassword - Password yang sudah di-hash.
- * @returns {Promise<void>}
+ * @returns {Promise<number>} - ID user yang baru dibuat.
  */
 const createUser = async (username, email, hashedPassword) => {
   try {
-    const query = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)";
-    await db.query(query, [username, email, hashedPassword]);
+    const query = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id";
+    const { rows } = await db.query(query, [username, email, hashedPassword]);
+    return rows[0].id; // Kembalikan ID user yang baru dibuat
   } catch (error) {
     console.error("Error saat membuat user:", error.message);
     throw error; // Biarkan handler yang menangani

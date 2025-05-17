@@ -59,7 +59,6 @@ const init = async () => {
   // Jalankan server
   await server.start();
   console.log(`Server berjalan pada ${server.info.uri}`);
-  console.log(server.table());
 };
 
 // Tangani unhandled rejection dan signal SIGINT untuk proses keluar
