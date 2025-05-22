@@ -29,6 +29,7 @@ const register = async (request, h) => {
     return h
       .response({
         status: "success",
+        message: "Akun berhasil didaftarkan",
         token: token,
         user: {
           id: userId,
@@ -80,6 +81,7 @@ const login = async (request, h) => {
     return h
       .response({
         status: "success",
+        message: "Login berhasil",
         token: token,
         user: {
           id: user.id,
